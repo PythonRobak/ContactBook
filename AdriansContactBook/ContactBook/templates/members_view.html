@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body>
+    <header>
+        <!--<div class="container-fluid">-->
+            <nav class="navbar navbar-dark bg-primary fixed-top navbar-expand-md">
+                <a class="navbar-brand" href="/">ContactBook</a>
+                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#mainmenu"
+                        aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainmenu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="/new">Add User</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/">Browse Users</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/addGroup">Add Group</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/browseGroups">Browse Groups</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/search">Search</a> </li>
+                    </ul>
+                </div>
+
+
+            </nav>
+        <!--</div>-->
+    </header>
+    <div class="container text-center my-auto">
+    <h1><br></h1>
+    <h2>All Users</h2>
+    <p><br><br></p>
+
+    <div class="table-responsive-sm">
+        <table class="table table-sm table-striped text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th>id</th>
+                <th>Nickname</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            {% for user in all_members %}
+            <tr>
+                <td>
+                    {{ user.id }}
+                </td>
+                <td>
+                    <a href="/show/{{ user.id }}">{{ user.nick }}</a>
+
+                </td>
+                <td>
+                    {{ user.first_name }}
+                </td>
+                <td>
+                    {{ user.last_name }}
+                </td>
+                <td>
+                   <div class="btn-group btn-group-justified">
+                        <a href="/show/{{ user.id }}" class="btn btn-success btn-sm">View</a>
+                        <a href="/modify/{{ user.id }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/delete/{{ user.id }}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</html>

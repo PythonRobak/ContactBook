@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Member</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <header>
+        <!--<div class="container-fluid">-->
+            <nav class="navbar navbar-dark bg-primary fixed-top navbar-expand-md">
+                <a class="navbar-brand" href="/">ContactBook</a>
+                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#mainmenu"
+                        aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainmenu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="/new">Add User</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/">Browse Users</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/addGroup">Add Group</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/browseGroups">Browse Groups</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="/search">Search</a> </li>
+                    </ul>
+                </div>
+
+
+            </nav>
+        <!--</div>-->
+    </header>
+
+    <div class="container text-center my-auto">
+
+        <h1><br></h1>
+        <h2>Details of {{ member.nick }}</h2>
+        <p><br><br></p>
+
+        <form name="user_form" class="form-horizontal" action="" method="post">
+            <div class="form-group">
+                <label class="label label-primary" for="Nickname">Nickname:</label>
+                <input type="text" name="nick_name" class="form-control" id="Nickname" placeholder="{{ member.nick }}" value="{{ member.nick }}">
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="first_name" class="form-control" id="firstName" placeholder="{{ member.first_name }}" value="{{ member.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="last_name" class="form-control" id="lastName" placeholder="{{ member.last_name }}" value="{{ member.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" name="description" class="form-control" id="description" placeholder="{{ member.description }}" value="{{ member.description }}">
+                <!--<textarea name="description" name="user_form" class="form-control" rows="5" id="description" placeholder="{{ member.description }}"></textarea>-->
+            </div>
+            {% if addresses %}
+                {% for address in address %}
+                    <div class="form-group">
+                        <label for="exampleFormControlInput4"><h4>Address {{ address.name }}:</h4></label>
+                        <input type="text" name="last_name" class="form-control" id="exampleFormControlInput4" placeholder="{{ address.name }}">
+                    </div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="city">Country:</label>
+                                <input type="text" name="city" class="form-control" id="country" placeholder="{{ address.country }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State:</label>
+                                <input type="text" name="state" class="form-control" id="state" placeholder="{{ adress.state }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City:</label>
+                                <input type="text" name="city" class="form-control" id="city" placeholder="{{ address.city }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="street">Street:</label>
+                                <input type="text" name="street" class="form-control" id="street" placeholder="{{ address.street }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="house_number">House Number:</label>
+                                <input type="text" name="house_number" class="form-control" id="house_number" placeholder="{{ address.house_number }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="apartment_number">Apartment Number:</label>
+                                <input type="text" name="apartment_number" class="form-control" id="apartment_number" placeholder="{{ address.apartment_number }}">
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+                <form action="" method="post">
+                <div class="btn-group btn-group-justified">
+                    <!--<a href="/addDetails/{{ member.id }}" class="btn btn-success btn-sm">Add Details</a>-->
+                    <button type="submit" class="btn btn-warning btn-sm">Save Changes</button>
+                    <!--<a href="/show/{{ member.id }}" class="btn btn-warning btn-sm">Save Changes</a>-->
+                    <a href="/delete/{{ member.id }}" class="btn btn-danger btn-sm">Delete Member</a>
+                </div>
+                    {% csrf_token %}
+                </form>
+                <p><br></p>
+
+            {% if groups %}
+                <hr>
+                <div>
+                    <h4>{{ member.nick }} is member of groups:</h4>
+
+                </div>
+                <p>
+            {% for group in groups %}
+                {{ group.name }},
+            {% endfor %}
+                </p>
+                <hr>
+            {% endif %}
+
+            <p><br></p>
+            <div class="btn-group btn-group-justified">
+                <a href="/addToGroup/{{ member.id }}" class="btn btn-success btn-sm">Add to Groups</a>
+                <a href="/removeFromGroup/{{ member.id }}" class="btn btn-danger btn-sm">Remove from Groups</a>
+            </div>
+            <p><br><br></p>
+        {% csrf_token %}
+        </form>
+
+
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</html>
